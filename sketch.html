@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Processing.JS inside Webpages: Template</title>
+</head>
+
+<body>
+  <!--This draws the canvas on the webpage -->
+  <canvas id="mycanvas"></canvas>
+</body>
+
+<!-- Include the processing.js library -->
+<!-- See https://khanacademy.zendesk.com/hc/en-us/articles/202260404-What-parts-of-ProcessingJS-does-Khan-Academy-support- for differences -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.0/processing.min.js"></script>
+<script>
+  var programCode = function (processingInstance) {
+    with (processingInstance) {
+      size(1000, 1000);
+      frameRate(30);
+
+
+      //drawing starts here
+      ellipse(80, 64, 100, 100);
+      //left arm
+
+      pushMatrix();
+      pushStyle();
+      noStroke();
+      fill(66, 167, 245);
+      translate(390, 400);
+      rotate(radians(-55));
+      ellipse(0, 0, 75, 200);
+      popMatrix();
+
+      //right arm
+      pushMatrix();
+      translate(650, 400);
+      rotate(radians(55));
+      ellipse(0, 0, 75, 200);
+      popMatrix();
+      popStyle();
+
+      //horn
+      pushMatrix();
+      pushStyle();
+      noStroke();
+      fill(245, 66, 111);
+      translate(500, 270);
+      //translate(200, 300);
+      rotate(radians(-5));
+      beginShape();
+      //w and h are the half width and height of the ellipse
+      var w = 30;
+      var h = 100;
+      for (var t = 0; t <= TWO_PI; t += 0.05) {
+
+        // base ellipse
+        var x = w * cos(t);
+        var y = h * sin(t);
+
+        // taper the right end smoothly
+        var taper = map(cos(t), -1, 1, 0.3, 1);
+        y *= taper;
+
+        vertex(x, y);
+      }
+      endShape(CLOSE);
+      ///ellipse(0, 0, 50, 160);
+      popMatrix();
+      //head
+      pushMatrix();
+      translate(475, 300);
+      ellipse(0, 0, 160, 115);
+      popMatrix();
+      popStyle();
+      //beak
+      pushMatrix();
+      pushStyle();
+      noStroke();
+      fill(66, 167, 245);
+      translate(390, 325);
+      ellipse(0, 0, 115, 50);
+      popMatrix();
+      popStyle();
+
+      //eye
+
+      stroke(0);
+      pushMatrix();
+      translate(500, 300);
+      ellipse(0, 0, 65, 65);
+      popMatrix();
+
+
+      pushMatrix();
+      translate(500, 300);
+      ellipse(0, 0, 50, 50);
+      popMatrix();
+
+      pushMatrix();
+      translate(500, 300);
+      ellipse(0, 0, 25, 25);
+      popMatrix();
+
+
+      //bottom part
+      pushMatrix();
+      pushStyle();
+      noStroke();
+      fill(66, 167, 245);
+      translate(475, 700);
+      //translate(200, 300);
+      rotate(radians(120));
+      beginShape();
+      //w and h are the half width and height of the ellipse
+      var w = 120;
+      var h = 38;
+      for (var t = 0; t <= TWO_PI; t += 0.05) {
+
+        // base ellipse
+        var x = w * cos(t);
+        var y = h * sin(t);
+
+        // taper the right end smoothly
+        var taper = map(cos(t), -1, 1, 0.3, 1);
+        y *= taper;
+
+        vertex(x, y);
+      }
+      endShape(CLOSE);
+      ///ellipse(0, 0, 50, 160);
+      popMatrix();
+      popStyle();
+
+      //stomach
+      pushMatrix();
+      pushStyle();
+      fill(66, 167, 245);
+      noStroke();
+      translate(525, 500);
+      //translate(225, 200);
+      rotate(radians(-15));
+      ellipse(0, 0, 125, 188);
+      popMatrix();
+      popStyle();
+
+      //body stripe
+      pushMatrix();
+      translate(530, 520);
+      rotate(radians(-105));
+      beginShape();
+      for (var t = 0; t <= TWO_PI; t += 0.05) {
+        var x = 100 * cos(t);
+        var y = 60 * sin(t);
+
+
+        if (t > PI / 2 && t < (3 * PI) / 2) {
+          x *= 0.87;
+
+          /*if (t > PI) {
+            y *= 1;*/
+          // distort bottom half;
+        }
+        else {
+          x *= -0.15;
+
+        }
+        vertex(x, y);
+      }
+      endShape(CLOSE);
+      popMatrix();
+
+
+      pushMatrix();
+      translate(520, 470);
+      rotate(radians(95));
+      beginShape();
+      for (var t = 0; t <= TWO_PI; t += 0.05) {
+        var x = 100 * cos(t);
+        var y = 60 * sin(t);
+
+
+        if (t > PI / 2 && t < (3 * PI) / 2) {
+          x *= 0.87;
+
+          /*if (t > PI) {
+            y *= 1;*/
+          // distort bottom half;
+        }
+        else {
+          x *= -0.15;
+
+        }
+        vertex(x, y);
+      }
+      endShape(CLOSE);
+      popMatrix();
+
+
+
+    }
+  };
+
+  // Get the canvas that ProcessingJS will use
+  var canvas = document.getElementById("mycanvas");
+  // Pass the function to ProcessingJS constructor
+  var processingInstance = new Processing(canvas, programCode); 
+</script>
+
+</html>
